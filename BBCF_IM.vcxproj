@@ -15,6 +15,7 @@
     <ClCompile Include="depends\imgui\imgui_demo.cpp" />
     <ClCompile Include="depends\imgui\imgui_draw.cpp" />
     <ClCompile Include="depends\imgui\imgui_impl_dx9.cpp" />
+    <ClCompile Include="src\Overlay\Window\FrameDataDisplay.cpp" />
     <ClCompile Include="src\CustomGameMode\customGameMode.cpp" />
     <ClCompile Include="src\CustomGameMode\GameModeManager.cpp" />
     <ClCompile Include="src\Game\characters.cpp" />
@@ -83,6 +84,7 @@
     <ClInclude Include="depends\imgui\stb_rect_pack.h" />
     <ClInclude Include="depends\imgui\stb_textedit.h" />
     <ClInclude Include="depends\imgui\stb_truetype.h" />
+    <ClInclude Include="src\Overlay\Window\FrameDataDisplay.h" />
     <ClInclude Include="src\Core\info.h" />
     <ClInclude Include="src\CustomGameMode\customGameMode.h" />
     <ClInclude Include="src\CustomGameMode\GameModeManager.h" />
