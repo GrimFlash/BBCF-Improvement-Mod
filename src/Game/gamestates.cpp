@@ -14,7 +14,7 @@ bool isPaletteEditingEnabledInCurrentState()
 	return isEnabledInCurrentState && isEnabledInCurrentMode;
 }
 
-bool isHitboxOverlayEnabledInCurrentState()
+bool isTrainingToolsEnabledInCurrentState()
 {
 	bool isEnabledInCurrentState =
 		*g_gameVals.pGameState == GameState_InMatch;
