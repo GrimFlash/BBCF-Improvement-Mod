@@ -12,7 +12,7 @@ void HitboxOverlay::Update()
 		return;
 	}
 
-	if (!isHitboxOverlayEnabledInCurrentState())
+	if (!isTrainingToolsEnabledInCurrentState())
 	{
 		return;
 	}
@@ -45,10 +45,12 @@ void HitboxOverlay::Draw()
 	for (int i = 0; i < g_gameVals.entityCount; i++)
 	{
 		CharData* pEntity = (CharData*)g_gameVals.pEntityList[i];
+		std::vector<hitbox> entries = JonbReader::getJonbEntries(pEntity);
 		const bool isCharacter = i < 2;
-		const bool isEntityActive = pEntity->unknownStatus1 == 1 && pEntity->pJonbEntryBegin;
+		const bool isEntityActive = pEntity->unknownStatus1 == 1 && pEntity->pJonbEntryBegin; //this is probably not the true indicator of whether a hitbox is active or not
+		//const hitbox &box = pEntity->pJonbEntryBegin[i];
 
-		if (isCharacter || isEntityActive)
+		if (isCharacter)
 		{
 			if (!IsOwnerEnabled(pEntity->ownerEntity))
 			{
@@ -150,9 +152,9 @@ void HitboxOverlay::DrawOriginLine(ImVec2 worldPos, float rotationRad)
 
 void HitboxOverlay::DrawCollisionAreas(const CharData* charObj, const ImVec2 playerWorldPos)
 {
-	std::vector<JonbEntry> entries = JonbReader::getJonbEntries(charObj);
+	std::vector<hitbox> entries = JonbReader::getJonbEntries(charObj);
 
-	for (const JonbEntry &entry : entries)
+	for (const hitbox &entry : entries)
 	{
 		float scaleX = charObj->scaleX / 1000.0f;
 		float scaleY = charObj->scaleY / 1000.0f;
@@ -192,7 +194,7 @@ void HitboxOverlay::DrawCollisionAreas(const CharData* charObj, const ImVec2 pla
 
 		const unsigned int colorBlue = 0xFF0033CC;
 		const unsigned int colorRed = 0xFFFF0000;
-		const unsigned int rectBorderColor = entry.type == JonbChunkType_Hurtbox ? colorBlue : colorRed;
+		const unsigned int rectBorderColor = entry.type == hitbox::JonbEntryType_::hurt ? colorBlue : colorRed;
 
 		RenderRect(pointA, pointB, pointC, pointD, rectBorderColor, m_rectThickness);
 
