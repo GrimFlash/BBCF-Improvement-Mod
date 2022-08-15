@@ -12,6 +12,8 @@ public:
 	void SetCharDataPtr(const void* addr);
 	bool IsCharDataNullPtr() const;
 
+	int last_neutral;
+
 private:
 	CharData** m_charData;
 	CharPaletteHandle m_charPalHandle;
