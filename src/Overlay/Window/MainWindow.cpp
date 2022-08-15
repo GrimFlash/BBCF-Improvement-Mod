@@ -75,7 +75,7 @@ void MainWindow::Draw()
 
 	DrawGameplaySettingSection();
 	DrawCustomPalettesSection();
-	DrawHitboxOverlaySection();
+	DrawTrainingToolsSection();
 	DrawAvatarSection();
 	DrawLoadedSettingsValuesSection();
 	DrawUtilButtons();
@@ -160,24 +160,25 @@ void MainWindow::DrawCustomPalettesSection() const
 	}
 }
 
-void MainWindow::DrawHitboxOverlaySection() const
+void MainWindow::DrawTrainingToolsSection() const
 {
-	if (!ImGui::CollapsingHeader("Hitbox overlay"))
+	if (!ImGui::CollapsingHeader("Training Tools"))
 		return;
 
-	if (!isHitboxOverlayEnabledInCurrentState())
+	if (!isTrainingToolsEnabledInCurrentState())
 	{
 		ImGui::HorizontalSpacing();
 		ImGui::TextDisabled("YOU ARE NOT IN TRAINING, VERSUS, OR REPLAY!");
 		return;
 	}
 
-	static bool isOpen = false;
+	static bool isHitboxOverlayOpen = false;
+	static bool isFrameDataDisplayOpen = false;
 
 	ImGui::HorizontalSpacing();
-	if (ImGui::Checkbox("Enable", &isOpen))
+	if (ImGui::Checkbox("Hitbox Overlay", &isHitboxOverlayOpen))
 	{
-		if (isOpen)
+		if (isHitboxOverlayOpen)
 		{
 			m_pWindowContainer->GetWindow(WindowType_HitboxOverlay)->Open();
 		}
@@ -188,7 +189,7 @@ void MainWindow::DrawHitboxOverlaySection() const
 		}
 	}
 
-	if (isOpen)
+	if (isHitboxOverlayOpen)
 	{
 		ImGui::VerticalSpacing(10);
 
@@ -246,6 +247,30 @@ void MainWindow::DrawHitboxOverlaySection() const
 
 			ImGui::SameLine();
 			ImGui::SliderInt("", &framesToStep, 1, 60);
+		}
+	}
+
+	ImGui::HorizontalSpacing();
+	if (ImGui::Checkbox("Framedata Display", &isFrameDataDisplayOpen))
+	{
+		if (isFrameDataDisplayOpen) 
+		{
+			m_pWindowContainer->GetWindow(WindowType_FrameDataDisplay)->Open();
+		}
+	}
+
+	if (isFrameDataDisplayOpen)
+	{
+		ImGui::VerticalSpacing(10);
+
+		if (!g_interfaces.player1.IsCharDataNullPtr() && !g_interfaces.player2.IsCharDataNullPtr()) 
+		{
+#ifdef _DEBUG
+			ImGui::Text("P1: %d", g_interfaces.player1.last_neutral);
+			ImGui::Text("P2: %d", g_interfaces.player2.last_neutral);
+#endif
+			ImGui::Text("P1 Adv: %d", g_interfaces.player2.last_neutral - g_interfaces.player1.last_neutral);
+			ImGui::Text("P2 Adv: %d", g_interfaces.player1.last_neutral - g_interfaces.player2.last_neutral);
 		}
 	}
 }
