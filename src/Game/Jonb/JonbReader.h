@@ -7,5 +7,5 @@
 class JonbReader
 {
 public:
-	static std::vector<JonbEntry> getJonbEntries(const CharData* charObj);
+	static std::vector<hitbox> getJonbEntries(const CharData* charObj);
 };

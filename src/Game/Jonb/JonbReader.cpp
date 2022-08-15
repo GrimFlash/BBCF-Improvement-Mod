@@ -1,11 +1,11 @@
 #include "JonbReader.h"
 
-std::vector<JonbEntry> JonbReader::getJonbEntries(const CharData * charObj)
+std::vector<hitbox> JonbReader::getJonbEntries(const CharData * charObj)
 {
-	std::vector<JonbEntry> jonbEntries;
+	std::vector<hitbox> jonbEntries;
 
 	const int entriesCount = charObj->hurtboxCount + charObj->hitboxCount;
-	JonbEntry* pEntry = charObj->pJonbEntryBegin;
+	hitbox* pEntry = charObj->pJonbEntryBegin;
 
 	for (int i = 0; i < entriesCount; i++)
 	{
