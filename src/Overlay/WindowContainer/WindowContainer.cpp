@@ -2,6 +2,7 @@
 
 #include "Overlay/Window/DebugWindow.h"
 #include "Overlay/Window/HitboxOverlay.h"
+#include "Overlay/Window/FrameDataDisplay.h"
 #include "Overlay/Window/LogWindow.h"
 #include "Overlay/Window/MainWindow.h"
 #include "Overlay/Window/PaletteEditorWindow.h"
@@ -33,6 +34,9 @@ WindowContainer::WindowContainer()
 
 	AddWindow(WindowType_HitboxOverlay,
 		new HitboxOverlay("##HitboxOverlay", false, ImGuiWindowFlags_NoCollapse));
+
+	AddWindow(WindowType_FrameDataDisplay,
+		new FrameDataDisplay("##FrameDataDisplay", false, ImGuiWindowFlags_NoCollapse));
 
 	AddWindow(WindowType_Room,
 		new RoomWindow("Online###Room", true, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoCollapse));
