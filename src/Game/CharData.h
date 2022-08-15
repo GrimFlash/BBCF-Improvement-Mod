@@ -13,7 +13,7 @@ public:
 	char pad_001C[24]; //0x001C
 	int32_t charIndex; //0x0034
 	char pad_0038[20]; //0x0038
-	class JonbEntry* pJonbEntryBegin; //0x004C
+	class hitbox* pJonbEntryBegin; //0x004C
 	char pad_0050[68]; //0x0050
 	uint32_t hurtboxCount; //0x0094
 	uint32_t hitboxCount; //0x0098
