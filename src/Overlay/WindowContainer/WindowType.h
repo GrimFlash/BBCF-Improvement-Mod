@@ -8,6 +8,7 @@ enum WindowType_
 	WindowType_UpdateNotifier,
 	WindowType_PaletteEditor,
 	WindowType_HitboxOverlay,
+	WindowType_FrameDataWindow,
 	WindowType_Room,
 	WindowType_Scr,
 	WindowType_InputBufferP1,
