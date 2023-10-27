@@ -217,6 +217,8 @@ void WindowManager::Render()
 		m_windowContainer->GetWindow(WindowType_UpdateNotifier)->IsOpen();
 	bool isPaletteEditorWindowOpen =
 		m_windowContainer->GetWindow(WindowType_PaletteEditor)->IsOpen();
+	bool isFrameDataWindowOpen =
+		m_windowContainer->GetWindow(WindowType_FrameDataWindow)->IsOpen();
 	bool isLogWindowOpen =
 		m_windowContainer->GetWindow(WindowType_Log)->IsOpen();
 	bool isRoomWindowOpen =
@@ -233,9 +235,9 @@ void WindowManager::Render()
 		m_windowContainer->GetWindow(WindowType_PlaybackEditor)->IsOpen();
 
 	ImGui::GetIO().MouseDrawCursor = isMainWindowOpen || isLogWindowOpen || isPaletteEditorWindowOpen
-		|| isUpdateNotifierWindowOpen || isRoomWindowOpen || isDebugWindowOpen || 
-		isScrWindowOpen || isInputBufferP1WindowOpen || isInputBufferP2WindowOpen
-		|| isPlaybackEditorWindowOpen;
+		|| isFrameDataWindowOpen || isUpdateNotifierWindowOpen || isRoomWindowOpen
+		|| isDebugWindowOpen || isScrWindowOpen || isInputBufferP1WindowOpen 
+		|| isInputBufferP2WindowOpen || isPlaybackEditorWindowOpen;
 
 	if (Settings::settingsIni.viewport == 2)
 	{
