@@ -134,6 +134,17 @@
     <ClCompile Include="src\Overlay\Widget\StageSelectWidget.cpp" />
     <ClCompile Include="src\Overlay\Widget\GameModeSelectWidget.cpp" />
     <ClCompile Include="src\Overlay\Widget\ActiveGameModeWidget.cpp" />
+    <ClCompile Include="src\Game\Scr\ScrStateReader.cpp" />
+    <ClCompile Include="src\Overlay\Window\ScrWindow.cpp" />
+    <ClCompile Include="src\Game\ReplayStates\FrameState.cpp" />
+    <ClCompile Include="src\Game\ReplayFiles\ReplayFileManager.cpp" />
+    <ClCompile Include="src\Game\Playbacks\PlaybackManager.cpp" />
+    <ClCompile Include="src\Game\Playbacks\PlaybackSlot.cpp" />
+    <ClCompile Include="src\Overlay\Window\framedata.cpp" />
+    <ClCompile Include="src\Game\Menus\TrainingSetupMenu.cpp" />
+    <ClCompile Include="src\Overlay\Window\InputBufferWindow.cpp" />
+    <ClCompile Include="src\Overlay\Window\PlaybackEditorWindow.cpp" />
+    <ClCompile Include="src\Game\Jonb\JonbDBReader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="depends\imgui\imgui.h" />
@@ -249,6 +260,24 @@
     <ClInclude Include="src\Overlay\Widget\StageSelectWidget.h" />
     <ClInclude Include="src\Overlay\Widget\GameModeSelectWidget.h" />
     <ClInclude Include="src\Overlay\Widget\ActiveGameModeWidget.h" />
+    <ClInclude Include="src\Game\Playbacks\PlaybackSlot.h" />
+    <ClInclude Include="src\Game\Playbacks\PlaybackManager.h" />
+    <ClInclude Include="src\Game\EntityData.h" />
+    <ClInclude Include="src\Overlay\Window\ScrWindow.h" />
+    <ClInclude Include="src\Game\ReplayFiles\ReplayFile.h" />
+    <ClInclude Include="src\Game\ReplayFiles\ReplayFileManager.h" />
+    <ClInclude Include="src\Game\Scr\CmdList.h" />
+    <ClInclude Include="src\Game\Scr\ScrStateEntry.h" />
+    <ClInclude Include="src\Game\Scr\ScrStateReader.h" />
+    <ClInclude Include="src\Overlay\Window\framedata.h" />
+    <ClInclude Include="src\Game\ReplayStates\FrameState.h" />
+    <ClInclude Include="src\Game\Menus\TrainingSetupMenu.h" />
+    <ClInclude Include="src\Overlay\Window\InputBufferWindow.h" />
+    <ClInclude Include="src\Overlay\Window\PlaybackEditorWindow.h" />
+    <ClInclude Include="src\Game\Jonb\JonbDBReader.h" />
+    <ClInclude Include="src\Game\Jonb\JonbDBEntry.h" />
+    <ClInclude Include="..\..\..\..\Downloads\stb_image.h" />
+    <ClInclude Include="depends\imgui\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="export\dinput8.def">
@@ -259,5 +288,11 @@
     </None>
     <None Include="src\Core\settings.def" />
     <None Include="resource\palettes.ini" />
+    <None Include=".gitignore" />
+    <None Include="LICENSE" />
+    <None Include="README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="USER_README.txt" />
   </ItemGroup>
 </Project>

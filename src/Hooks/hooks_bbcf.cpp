@@ -10,6 +10,13 @@
 #include "Network/RoomManager.h"
 #include "Overlay/WindowManager.h"
 #include "SteamApiWrapper/steamApiWrappers.h"
+#include "Core/info.h"
+#include <string>
+
+
+
+
+
 
 DWORD GetGameStateTitleScreenJmpBackAddr = 0;
 void __declspec(naked)GetGameStateTitleScreen()
@@ -629,6 +636,23 @@ void __declspec(naked)GetFFAMatchThisPlayerIndex()
 	}
 }
 
+DWORD SetDumpfileCommentStringJmpBackAddr = 0;
+void __declspec(naked)SetDumpfileCommentString()
+{
+	static int* addr = nullptr;
+
+	LOG_ASM(2, "SetDumpfileCommentString\n");
+	static char* format_string = "\n GameMode: %d, GameScene: %d, GameSceneStatus: %d \n Improvement Mod loaded \n Version: "  MOD_VERSION_NUM;
+	_asm
+	{
+		push format_string
+		jmp[SetDumpfileCommentStringJmpBackAddr]
+	}
+}
+
+
+
+
 bool placeHooks_bbcf()
 {
 	LOG(2, "placeHooks_bbcf\n");
@@ -713,5 +737,6 @@ bool placeHooks_bbcf()
 		"xx????xx?x????xx????xx", 6);
 	g_gameVals.pGameMoney = (int*)HookManager::GetBytesFromAddr("GetMoneyAddr", 2, 4);
 
+	SetDumpfileCommentStringJmpBackAddr = HookManager::SetHook("SetDumpfileCommentString", "\x68\x04\x8f\xe6\x00", "xxx??", 5, SetDumpfileCommentString);
 	return true;
 }

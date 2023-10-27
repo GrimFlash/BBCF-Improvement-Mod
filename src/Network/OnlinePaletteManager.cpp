@@ -3,7 +3,7 @@
 #include "Palette/impl_format.h"
 
 #include "Core/logger.h"
-
+#include "Core/interfaces.h"
 OnlinePaletteManager::OnlinePaletteManager(PaletteManager* pPaletteManager, CharPaletteHandle* pP1CharPalHandle,
 	CharPaletteHandle* pP2CharPalHandle, RoomManager* pRoomManager)
 	: m_pPaletteManager(pPaletteManager), m_pP1CharPalHandle(pP1CharPalHandle), 
@@ -37,8 +37,10 @@ void OnlinePaletteManager::RecvPaletteDataPacket(Packet* packet)
 		m_unprocessedPaletteFiles.push(UnprocessedPaletteFile(matchPlayerIndex, (PaletteFile)packet->part, (char*)packet->data));
 		return;
 	}
-
-	m_pPaletteManager->ReplacePaletteFile((const char*)packet->data, (PaletteFile)packet->part, charPalHandle);
+	if (g_gameVals.enableForeignPalettes) {
+		m_pPaletteManager->ReplacePaletteFile((const char*)packet->data, (PaletteFile)packet->part, charPalHandle);
+	}
+	
 }
 
 void OnlinePaletteManager::RecvPaletteInfoPacket(Packet* packet)
@@ -53,8 +55,9 @@ void OnlinePaletteManager::RecvPaletteInfoPacket(Packet* packet)
 		m_unprocessedPaletteInfos.push(UnprocessedPaletteInfo(matchPlayerIndex, (IMPL_info_t*)packet->data));
 		return;
 	}
-
-	m_pPaletteManager->SetCurrentPalInfo(charPalHandle, *(IMPL_info_t*)packet->data);
+	if (g_gameVals.enableForeignPalettes) {
+		m_pPaletteManager->SetCurrentPalInfo(charPalHandle, *(IMPL_info_t*)packet->data);
+	}
 }
 
 void OnlinePaletteManager::ProcessSavedPalettePackets()

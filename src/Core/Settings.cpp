@@ -35,7 +35,7 @@ void Settings::applySettingsIni(D3DPRESENT_PARAMETERS* pPresentationParameters)
 	default:
 		break;
 	}
-
+	g_gameVals.enableForeignPalettes = Settings::settingsIni.loadforeignpalettes;
 	//pPresentationParameters->Windowed = !Settings::settingsIni.fullscreen;
 
 	pPresentationParameters->PresentationInterval = settingsIni.vsync ? D3DPRESENT_INTERVAL_DEFAULT : D3DPRESENT_INTERVAL_IMMEDIATE;

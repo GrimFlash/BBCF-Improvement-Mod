@@ -4,6 +4,27 @@
 #include <fstream>
 #include <Psapi.h>
 
+char* GetBbcfBaseAdress() {
+	//Get all module related information
+			//Get process name
+	TCHAR szFileName[MAX_PATH + 1];
+	GetModuleFileName(NULL, szFileName, MAX_PATH + 1);
+
+	MODULEINFO modinfo = { 0 };
+	HMODULE hModule = GetModuleHandle(szFileName);
+	if (hModule == 0) {
+		return NULL;
+	}
+	GetModuleInformation(GetCurrentProcess(), hModule, &modinfo, sizeof(MODULEINFO));
+	////////
+
+	//Assign our base and module size
+	//Having the values right is ESSENTIAL, this makes sure
+	//that we don't scan unwanted memory and leading our game to crash
+	long base = (long)modinfo.lpBaseOfDll;
+	char* bbcf_base = (char*)base;
+	return bbcf_base;
+}
 void WriteToProtectedMemory(uintptr_t addressToWrite, char* valueToWrite, int byteNum)
 {
 	//used to change our file access type, stores the old

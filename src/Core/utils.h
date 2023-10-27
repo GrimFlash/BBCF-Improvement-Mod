@@ -10,6 +10,7 @@
 
 #define nameof(symbol) #symbol
 
+char* GetBbcfBaseAdress();
 void WriteToProtectedMemory(uintptr_t addressToWrite, char* valueToWrite, int byteNum);
 char* RawMemoryArrayToString(unsigned char* srcBuf, int length);
 DWORD FindPattern(LPCWSTR module, char *pattern, char *mask);

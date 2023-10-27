@@ -87,6 +87,11 @@ bool WindowManager::Initialize(void *hwnd, IDirect3DDevice9 *device)
 		ImGui::GetIO().Fonts->AddFontFromMemoryCompressedTTF(DroidSans_compressed_data, DroidSans_compressed_size, 20);
 		unicodeFontSize = 25;
 	}
+	else if (Settings::settingsIni.menusize == 4)
+	{
+		ImGui::GetIO().Fonts->AddFontFromMemoryCompressedTTF(DroidSans_compressed_data, DroidSans_compressed_size, 30);
+		unicodeFontSize = 35;
+	}
 	else
 	{
 		ImGui::GetIO().Fonts->AddFontDefault();
@@ -106,6 +111,8 @@ bool WindowManager::Initialize(void *hwnd, IDirect3DDevice9 *device)
 	ImGui::GetIO().Fonts->AddFontFromMemoryCompressedTTF(mplusMedium_compressed_data, mplusMedium_compressed_size,
 		unicodeFontSize, &config, ranges);
 
+
+	//ImGui::GetIO().Fonts->AddFontFromMemoryCompressedTTF(DroidSans_compressed_data, DroidSans_compressed_size, 20);
 	// Set up toggle buttons
 
 	keyToggleMainWindow = Settings::getButtonValue(Settings::settingsIni.togglebutton);
@@ -216,9 +223,19 @@ void WindowManager::Render()
 		m_windowContainer->GetWindow(WindowType_Room)->IsOpen();
 	bool isDebugWindowOpen =
 		m_windowContainer->GetWindow(WindowType_Debug)->IsOpen();
+	bool isScrWindowOpen =
+		m_windowContainer->GetWindow(WindowType_Scr)->IsOpen();
+	bool isInputBufferP1WindowOpen =
+		m_windowContainer->GetWindow(WindowType_InputBufferP1)->IsOpen();
+	bool isInputBufferP2WindowOpen =
+		m_windowContainer->GetWindow(WindowType_InputBufferP2)->IsOpen();
+	bool isPlaybackEditorWindowOpen =
+		m_windowContainer->GetWindow(WindowType_PlaybackEditor)->IsOpen();
 
 	ImGui::GetIO().MouseDrawCursor = isMainWindowOpen || isLogWindowOpen || isPaletteEditorWindowOpen
-		|| isUpdateNotifierWindowOpen || isRoomWindowOpen || isDebugWindowOpen;
+		|| isUpdateNotifierWindowOpen || isRoomWindowOpen || isDebugWindowOpen || 
+		isScrWindowOpen || isInputBufferP1WindowOpen || isInputBufferP2WindowOpen
+		|| isPlaybackEditorWindowOpen;
 
 	if (Settings::settingsIni.viewport == 2)
 	{

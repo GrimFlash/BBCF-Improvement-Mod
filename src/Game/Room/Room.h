@@ -21,6 +21,15 @@ enum RoomType : uint8_t
 	RoomType_Training = 0x31,
 	RoomType_Replay = 0x41
 };
+enum RoomRematch : uint8_t {
+
+	RematchType_Disabled = 0x0,
+    RematchType_Unlimited = 0x10,
+    RematchType_Ft2 = 0x20,
+    RematchType_Ft3 = 0x30, 
+    RematchType_Ft5 = 0x50,
+    RematchType_Ft10 = 0xA0,
+};
 
 class Room
 {
@@ -39,7 +48,7 @@ public:
 	uint8_t roundsToWinPlusMatchLimitBitfield; //0x0034
 	uint8_t roundTime; //0x0035
 	uint8_t skipTimeLimit; //0x0036
-	uint8_t N00009510; //0x0037
+	RoomRematch rematch; //0x0037
 	uint8_t memberCount; //0x0038
 	uint8_t N0000910B; //0x0039
 	uint8_t N0000910E; //0x003A
