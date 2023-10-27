@@ -25,7 +25,70 @@ const std::list<std::string> idleWords =
 "com3_kamae" // Mai 5xB stance
 };
 
-bool isDoingActionInList(const char currentAction[], const std::list<std::string>& listOfActions)
+void FrameDataWindow::Draw()
+{
+    ImVec4 color;
+    ImVec4 white(1.0f, 1.0f, 1.0f, 1.0f);
+    ImVec4 red(1.0f, 0.0f, 0.0f, 1.0f);
+    ImVec4 green(0.0f, 1.0f, 0.0f, 1.0f);
+
+    if (!isTrainingToolsEnabledInCurrentState() || HasNullptrInData())
+    {
+        Close();
+        return;
+    }
+
+    computeFramedataInteractions();
+
+    ImGui::SetWindowSize(ImVec2(220, 100), ImGuiCond_FirstUseEver);
+    ImGui::SetWindowPos(ImVec2(350, 250), ImGuiCond_FirstUseEver);
+
+    ImGui::Columns(2, "columns_layout", true);
+
+    // First column
+    if (interaction.frameAdvantageToDisplay > 0)
+        color = green;
+    else if (interaction.frameAdvantageToDisplay < 0)
+        color = red;
+    else
+        color = white;
+
+    ImGui::Text("Player 1");
+    ImGui::TextUnformatted("Gap:");
+    ImGui::SameLine();
+    ImGui::TextUnformatted(((interaction.p1GapDisplay != -1) ? std::to_string(interaction.p1GapDisplay) : "").c_str());
+
+    ImGui::TextUnformatted("Advantage:");
+    ImGui::SameLine();
+    std::string str = std::to_string(interaction.frameAdvantageToDisplay);
+    if (interaction.frameAdvantageToDisplay > 0)
+        str = "+" + str;
+
+    ImGui::TextColored(color, "%s", str.c_str());
+
+    // Next column
+    if (interaction.frameAdvantageToDisplay > 0)
+        color = red;
+    else if (interaction.frameAdvantageToDisplay < 0)
+        color = green;
+    else
+        color = white;
+
+    ImGui::NextColumn();
+    ImGui::Text("Player 2");
+    ImGui::TextUnformatted("Gap:");
+    ImGui::SameLine();
+    ImGui::TextUnformatted(((interaction.p2GapDisplay != -1) ? std::to_string(interaction.p2GapDisplay) : "").c_str());
+
+    ImGui::TextUnformatted("Advantage:");
+    ImGui::SameLine();
+    std::string str2 = std::to_string(-interaction.frameAdvantageToDisplay);
+    if (interaction.frameAdvantageToDisplay < 0)
+        str2 = "+" + str2;
+    ImGui::TextColored(color, "%s", str2.c_str());
+}
+
+bool FrameDataWindow::isDoingActionInList(const char currentAction[], const std::list<std::string>& listOfActions)
 {
     const std::string currentActionString = currentAction;
 
@@ -39,34 +102,42 @@ bool isDoingActionInList(const char currentAction[], const std::list<std::string
     return false;
 }
 
-bool isIdle(CharData& player)
+bool FrameDataWindow::isIdle(CharData& player, class Player& playerClass)
 {
     if (isBlocking(player) || isInHitstun(player))
         return false;
 
     if (isDoingActionInList(player.currentAction, idleWords))
+    {
+        playerClass.whiffBlockCancel = false;
         return true;
+    }
+    else if (playerClass.whiffBlockCancel == true)
+    {
+        return true;
+    }
+    
     return false;
 }
 
-bool isBlocking(CharData& player)
+bool FrameDataWindow::isBlocking(CharData& player)
 {
     if (player.blockstun > 0 || player.moveSpecialBlockstun > 0)
         return true;
     return false;
 }
 
-bool isInHitstun(CharData& player)
+bool FrameDataWindow::isInHitstun(CharData& player)
 {
     if (player.hitstun > 0 && !isDoingActionInList(player.currentAction, idleWords))
         return true;
     return false;
 }
 
-void getFrameAdvantage(CharData& player1, CharData& player2)
+void FrameDataWindow::getFrameAdvantage(CharData& player1, CharData& player2)
 {
-    bool isIdle1 = isIdle(player1);
-    bool isIdle2 = isIdle(player2);
+    bool isIdle1 = isIdle(player1, g_interfaces.player1);
+    bool isIdle2 = isIdle(player2, g_interfaces.player2);
     bool isStunned = isBlocking(player2) || isInHitstun(player2);
 
     if (!isIdle1 && !isIdle2)
@@ -92,8 +163,7 @@ void getFrameAdvantage(CharData& player1, CharData& player2)
     }
 }
 
-
-void computeGaps(CharData& player, int& gapCounter, int& gapResult)
+void FrameDataWindow::computeGaps(CharData& player, int& gapCounter, int& gapResult)
 {
     interaction.inBlockstring = isBlocking(player) || isInHitstun(player);
  
@@ -112,7 +182,7 @@ void computeGaps(CharData& player, int& gapCounter, int& gapResult)
     }
 }
 
-bool hasWorldTimeMoved()
+bool FrameDataWindow::hasWorldTimeMoved()
 {
     if (interaction.prevFrameCount < *g_gameVals.pFrameCount)
     {
@@ -124,9 +194,9 @@ bool hasWorldTimeMoved()
     return false;
 }
 
-void computeFramedataInteractions()
+void FrameDataWindow::computeFramedataInteractions()
 {
-    if (!isInMatch && !(*g_gameVals.pGameMode == GameMode_Training || *g_gameVals.pGameMode == GameMode_ReplayTheater))
+    if (!(*g_gameVals.pGameMode == GameMode_Training || *g_gameVals.pGameMode == GameMode_ReplayTheater))
         return;
 
     if (!g_interfaces.player1.IsCharDataNullPtr() && !g_interfaces.player2.IsCharDataNullPtr())
@@ -138,7 +208,14 @@ void computeFramedataInteractions()
         {
             computeGaps(player1, interaction.p1Gap, interaction.p1GapDisplay);
             computeGaps(player2, interaction.p2Gap, interaction.p2GapDisplay);
+
             getFrameAdvantage(player1, player2);
         }
     }
+}
+
+bool FrameDataWindow::HasNullptrInData()
+{
+    return g_interfaces.player1.IsCharDataNullPtr() ||
+        g_interfaces.player2.IsCharDataNullPtr();
 }
