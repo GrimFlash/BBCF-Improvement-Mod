@@ -161,6 +161,12 @@ void MainWindow::DrawFrameAdvantageSection() const
 		m_pWindowContainer->GetWindow(WindowType_FrameDataWindow)->ToggleOpen();
 	}
 
+	if (isFrameAdvantageOpen == false)
+	{
+		g_interfaces.player1.whiffBlockCancel = false;
+		g_interfaces.player2.whiffBlockCancel = false;
+	}
+	
 }
 
 void MainWindow::DrawCustomPalettesSection() const
