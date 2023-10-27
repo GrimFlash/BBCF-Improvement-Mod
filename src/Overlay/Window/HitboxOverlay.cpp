@@ -12,7 +12,7 @@ void HitboxOverlay::Update()
 		return;
 	}
 
-	if (!isHitboxOverlayEnabledInCurrentState())
+	if (!isTrainingToolsEnabledInCurrentState())
 	{
 		return;
 	}
