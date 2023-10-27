@@ -56,7 +56,7 @@ enum GameMode
 };
 
 bool isPaletteEditingEnabledInCurrentState();
-bool isHitboxOverlayEnabledInCurrentState();
+bool isTrainingToolsEnabledInCurrentState();
 bool isGameModeSelectorEnabledInCurrentState();
 bool isStageSelectorEnabledInCurrentState();
 
