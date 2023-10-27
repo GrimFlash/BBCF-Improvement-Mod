@@ -31,7 +31,7 @@ Download dinput8.dll from the latest release and put it in your BlazBlue Central
 
 
 ## Compiling and usage
-BBCF Improvement Mod is coded using Visual Studio 2019 (toolset v142). <br>
+BBCF Improvement Mod is coded using Visual Studio 2022 (toolset v143). <br>
 To compile, you should only need to load the sln file and compile as-is. No changes should be needed to the solution or source.<br>
 Copy the compiled binary, settings.ini, and palettes.ini files from the bin/ folder into the game's root folder.
 
