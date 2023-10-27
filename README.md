@@ -36,7 +36,7 @@ To compile, you should only need to load the sln file and compile as-is. No chan
 Copy the compiled binary, settings.ini, and palettes.ini files from the bin/ folder into the game's root folder.
 
 ## Requirements
-- Visual Studio 2019 (toolset v142) (Windows SDK 10)
+- Visual Studio 2022 (toolset v143) (Windows SDK 11)
 
 ## Thanks to the people who have helped the mod along the way
 * GrimFlash
