@@ -16,6 +16,7 @@ public:
 	void SetScrStates(std::vector<scrState*>);
 	bool IsCharDataNullPtr() const;
 
+	bool whiffBlockCancel;
 
 private:
 	CharData** m_charData;
