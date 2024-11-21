@@ -20,7 +20,9 @@ To compile, you should only need to load the sln file and compile as-is. No chan
 Copy the compiled binary, settings.ini, and palettes.ini files from the bin/ folder into the game's root folder.
 
 ## Requirements
-- Visual Studio 2019 (toolset v142) (Windows SDK 10)
+- Visual Studio 2022 (toolset v143) (Windows SDK 10)
+- C++ ATL for latest v143 Build Tools (x86 & x64)
+- C++ ATL for latest v143 Build Tools with Spectre Mitigations (x86 & x64)
 
 ## Thanks to the people who have helped the mod along the way
 * KoviDomi
